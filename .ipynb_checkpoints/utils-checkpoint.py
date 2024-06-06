@@ -219,7 +219,8 @@ def getXrayImage(x, take_screenshot=False):
         gvxr.translateNode(label, transformation[3], transformation[4], transformation[5], "mm")
         
         # rotation
-        gvxr.rotateNode(label, rot_angle, 0, 0, 1)
+        #gvxr.rotateNode(label, rot_angle, 0, 0, 1)
+        gvxr.rotateNode(label, float(rot_angle), 0.0, 0.0, 1.0) 
         gvxr.translateNode(label, -transformation[3], -transformation[4], -transformation[5], "mm")
 
         # Compute an X-ray image
@@ -373,6 +374,39 @@ def fitnessRMSE(x):
     counter += 1
 
     return fitness_value
+
+
+# def fitnessRMSE(x):
+#     global ref_image, best_fitness, fitness_set, counter, plot_directory
+
+#     if 'best_fitness' not in globals():
+#         best_fitness = sys.float_info.max
+#     if 'fitness_set' not in globals():
+#         fitness_set = []
+#     if 'counter' not in globals():
+#         counter = 1
+#     if 'plot_directory' not in globals():
+#         plot_directory = "."
+
+#     test_image = getXrayImage(x)
+        
+#     fitness_value = 0.0
+    
+#     for ref, test in zip(ref_image, test_image):
+#         fitness_value += compareRMSE(ref, test)
+
+#     fitness_value /= ref_image.shape[0]
+
+#     if best_fitness > fitness_value:
+#         fitness_set.append([counter, fitness_value])
+#         best_fitness = fitness_value
+#         displayResult(x, figsize)
+#         plt.savefig(plot_directory + "/plot_" + str(counter).zfill(4) + ".png")
+#         plt.close()
+
+#     counter += 1
+
+#     return fitness_value
 
 
 def fitnessMAE(x):
